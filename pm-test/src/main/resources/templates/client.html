@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+     <title>Getting Started: Serving Web Content</title>
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+     <h2>Clients List</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Telephone</th>
+        </tr>
+        <tr th:each="client : ${clients}">
+            <td th:text="${client.name}"></td>
+            <td th:text="${client.email}"></td>
+            <td th:text="${client.address}"></td>
+            <td th:text="${client.telephone}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

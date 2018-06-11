@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Getting Started: Serving Web Content</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h2>Employees List</h2>
+		<table class="table table-striped">
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email</th>
+				<th>Date of Birth</th>
+				<th>Telephone</th>
+				<th>Job Title</th>
+				<th></th>
+			</tr>
+
+
+
+			<tr th:each="employee : ${employees}">
+				<td th:text="${employee.firstName}"></td>
+				<td th:text="${employee.lastName}"></td>
+				<td th:text="${employee.email}"></td>
+				<td th:text="${employee.dob}"></td>
+				<td th:text="${employee.telephone}"></td>
+				<td th:text="${employee.jobTitle}"></td>
+				
+				 <td><a th:href="@{'/employee/' + ${employee.id} + '/update'}">Update</a></td>
+			</tr>
+		</table>
+	</div>
+	<div class="container">
+		<h2>Employees List</h2>
+		<table class="table table-striped">
+			<tr>
+				<th>Evaluation</th>
+				<th>Role</th>
+				<th>Salary</th>
+				<th>Social #</th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+			<tr th:each="employee : ${employees}">
+				<td th:text="${employee.empInfo.evaluation}"></td>
+				<td th:text="${employee.empInfo.role}"></td>
+				<td th:text="${employee.empInfo.salary}"></td>
+				<td th:text="${employee.empInfo.scn}"></td>
+				<td><a href="/employee/showEmpPopup"
+					th:href="@{/employee/showEmpPopup/}"
+					class="glyphicon glyphicon-edit" title="edit"> </a></td>
+			</tr>
+		</table>
+	</div>
+
+</body>
+</html>

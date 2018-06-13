@@ -33,11 +33,11 @@ public class Project {
 	private String description;
 
 	@Column(name = "START_DATE")
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date startDate;
 
 	@Column(name = "END_DATE")
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date endDate;
 
 	@Column(name = "COST")

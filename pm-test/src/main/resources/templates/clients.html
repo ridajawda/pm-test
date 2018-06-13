@@ -9,27 +9,25 @@
 </head>
 <body>
 <div class="container">
-     <h2>Projects List</h2>
-     <a href="#" th:href="@{/projects/new}" class="btn btn-primary" role="button">Add New Project</a>
+     <h2>Clients List</h2>
+     <a href="#" th:href="@{/clients/new}" class="btn btn-primary" role="button">Add New Client</a>
 			<br>
 			<br>
     <table class="table table-striped">
         <tr>
             <th>Name</th>
-            <th>Cost</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Project Type</th>
+            <th>Address</th>
+            <th>Telephone</th>
+            <th>Email</th>
             <th></th>
             
         </tr>
-        <tr th:each="project : ${projects}">
-            <td th:text="${project.name}"></td>
-            <td th:text="${project.cost}"></td>
-            <td th:text="${project.startDate}"></td>
-            <td th:text="${project.endDate}"></td>
-             <td th:text="${project.projectType}"></td>
-             <td><a th:href="@{'/project/' + ${project.id} + '/update'}">Update</a></td>
+        <tr th:each="client : ${clients}">
+            <td th:text="${client.name}"></td>
+            <td th:text="${client.address}"></td>
+            <td th:text="${client.telephone}"></td>
+            <td th:text="${client.email}"></td>
+            <td><a th:href="@{'/client/' + ${client.id} + '/update'}">Update</a></td>
         </tr>
     </table>
 </div>

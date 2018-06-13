@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -35,12 +37,15 @@ public class Employee {
 	private String lastName;
 
 	@Column(name = "DOB")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dob;
 
 	@Column(name = "HIRING_DATE")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date hiringDate;
 
 	@Column(name = "TERMINATION_DATE")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date terminationDate;
 
 	@Column(name = "TELEPHONE")
@@ -52,6 +57,7 @@ public class Employee {
 	@Column(name = "JOB_TITLE")
 	private String jobTitle;
 
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MANAGER_ID")
 	private Employee manager;
@@ -68,8 +74,20 @@ public class Employee {
 	public Employee() {
 		super();
 	}
+	
+	public Employee(Long id, String firstName, String lastName, String telephone, String email, String jobTitle) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.telephone = telephone;
+		this.email = email;
+		this.jobTitle = jobTitle;
+	}
 
-	public Employee(String firstName, String lastName, Date dob, Date hiringDate, Date terminationDate,
+
+
+	/*public Employee(String firstName, String lastName, Date dob, Date hiringDate, Date terminationDate,
 			String telephone, String email, String jobTitle, Employee manager, EmployeeInfo empInfo,
 			Set<Project> projects) {
 		super();
@@ -84,7 +102,7 @@ public class Employee {
 		this.manager = manager;
 		this.empInfo = empInfo;
 		this.projects = projects;
-	}
+	}*/
 
 	
 	public Long getId() {
@@ -111,9 +129,12 @@ public class Employee {
 		this.lastName = lastName;
 	}
 
+	
 	public Date getDob() {
 		return dob;
 	}
+
+
 
 	public void setDob(Date dob) {
 		this.dob = dob;

@@ -37,7 +37,7 @@ public class ProjectController {
 		return "project";
 	}
 
-	@PostMapping("saveProject")
+	@PostMapping("/projects/saveProject")
 	public String saveOrUpdate(Model model, Project project) {
 		projectService.saveProject(project);
 		model.addAttribute("projects",projectService.getProjects());

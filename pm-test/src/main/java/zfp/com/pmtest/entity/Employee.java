@@ -87,24 +87,7 @@ public class Employee {
 
 
 
-	/*public Employee(String firstName, String lastName, Date dob, Date hiringDate, Date terminationDate,
-			String telephone, String email, String jobTitle, Employee manager, EmployeeInfo empInfo,
-			Set<Project> projects) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.dob = dob;
-		this.hiringDate = hiringDate;
-		this.terminationDate = terminationDate;
-		this.telephone = telephone;
-		this.email = email;
-		this.jobTitle = jobTitle;
-		this.manager = manager;
-		this.empInfo = empInfo;
-		this.projects = projects;
-	}*/
-
-	
+		
 	public Long getId() {
 		return id;
 	}

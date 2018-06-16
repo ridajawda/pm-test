@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 import zfp.com.pmtest.entity.Employee;
 import zfp.com.pmtest.entity.Project;
 import zfp.com.pmtest.services.EmployeeServiceImpl;
@@ -49,60 +48,61 @@ public class ProjectController {
 		model.addAttribute("employeesList", this.employeeService.getEmployees());
 		return "project";
 	}
-	
+
 	@RequestMapping("project/{id}/addTeam")
 	public String addProjectTeam(@PathVariable String id, Model model) {
 		model.addAttribute("project", projectService.findById(Long.valueOf(id)));
 		model.addAttribute("employeesList", this.employeeService.getEmployees());
 		return "addTeam";
 	}
-
-	@PostMapping("/projects/saveProject")
-	public String saveOrUpdate(Model model, @RequestParam("project") Project project, 
-			@RequestParam("employees") Set<Long> employeesIds) {
-		Set<Employee> employees = new LinkedHashSet<Employee>();
-		if (project.getEmployees() != null && project.getEmployees().size() > 0) {
-			for (Employee emp : project.getEmployees()) {
-				employeesIds.add(emp.getId());
-			}
-			for (Long eId : employeesIds) {
-				Employee e = this.employeeService.findById(eId);
-				employees.add(e);
-			}
-			project.setEmployees(employees);
-			this.projectService.saveProject(project);
-			
-					}
-		model.addAttribute("projects", projectService.getProjects());
-		
-		return "redirect:/projects/";
-	}
 	
-	/*@PostMapping("/projects/saveProject")
-	public String saveOrUpdate(Model model, Project project) {
+	@PostMapping("/projects/saveProject")
+	public String saveOrUpdateProject(Model model, Project project) {
 		projectService.saveProject(project);
 		model.addAttribute("projects",projectService.getProjects());
 		return "redirect:/projects/";
-	}*/
-	
-	/*@RequestMapping(value = "/employee/projects/add", method = RequestMethod.POST)
-	public String addEmployeeProject(@RequestParam("employeeId") int employeeId,
-			@RequestParam("projects") Set<Integer> projectIds) {
-		EmployeeBO emp = this.employeeService.getEmployeeById(employeeId);
-		Set<ProjectBO> projects = new LinkedHashSet<ProjectBO>();
-		if (emp.getProjects() != null && emp.getProjects().size() > 0) {
-			for (ProjectBO pro : emp.getProjects()) {
-				projectIds.add(pro.getId());
-			}
-		}
-		for (Integer pId : projectIds) {
-			ProjectBO p = this.projectService.getProjectById(pId);
-			projects.add(p);
-		}
-		emp.setProjects(projects);
-		this.employeeService.updateEmployee(emp);
+	}
 
-		return "redirect:/employeeProjects";
+	@PostMapping("/projects/saveTeam")
+	public String saveOrUpdate(Model model, @RequestParam("id") Long projectId,
+			@RequestParam("empId") Long employeeId)
+	{
+		Project project = projectService.findById(projectId);
+		Employee employee = employeeService.findById(employeeId);
+		Set<Project> projects = new LinkedHashSet<Project>();
 
-	}*/
+		projects.add(project);
+		
+		employee.setProjects(projects);
+		employeeService.saveEmployee(employee);
+		model.addAttribute("project", project);
+		model.addAttribute("employee", employee);
+		return "redirect:/projects/";
+		
+	}
+
+	/*
+	 * @PostMapping("/projects/saveProject") public String saveOrUpdate(Model model,
+	 * Project project) { projectService.saveProject(project);
+	 * model.addAttribute("projects",projectService.getProjects()); return
+	 * "redirect:/projects/"; }
+	 */
+
+	/*
+	 * @RequestMapping(value = "/employee/projects/add", method =
+	 * RequestMethod.POST) public String
+	 * addEmployeeProject(@RequestParam("employeeId") int employeeId,
+	 * 
+	 * @RequestParam("projects") Set<Integer> projectIds) { EmployeeBO emp =
+	 * this.employeeService.getEmployeeById(employeeId); Set<ProjectBO> projects =
+	 * new LinkedHashSet<ProjectBO>(); if (emp.getProjects() != null &&
+	 * emp.getProjects().size() > 0) { for (ProjectBO pro : emp.getProjects()) {
+	 * projectIds.add(pro.getId()); } } for (Integer pId : projectIds) { ProjectBO p
+	 * = this.projectService.getProjectById(pId); projects.add(p); }
+	 * emp.setProjects(projects); this.employeeService.updateEmployee(emp);
+	 * 
+	 * return "redirect:/employeeProjects";
+	 * 
+	 * }
+	 */
 }

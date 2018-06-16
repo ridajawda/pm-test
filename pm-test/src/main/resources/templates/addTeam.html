@@ -14,32 +14,31 @@
 <body>
 	<div class="container">
 
-		 <h1>
-			<span th:text="${project.name }"
-				th:remove="tag">title</span>
+		<h1>
+			<span th:text="${project.name }" th:remove="tag">title</span>
 		</h1>
 		<h3>
-			<span th:text="${project.id }"
-				th:remove="tag">title</span>
+			<span th:text="${project.id }" th:remove="tag">title</span>
 		</h3>
-			<br>
-		 <h2>Add Project Team</h2>	
-			<br>
+		<br>
+		<h2>Add Project Team</h2>
+		<br>
 
 		<form class="form-group" th:object="${project}"
 			th:action="@{/projects/saveProject}" method="post">
 			<input th:type="hidden" name="id" th:field="${project.id}" />
 
 			<div class="form-group">
-				<label for="employees">Add Team:</label> 
-				<select name="employees" id="employees">
-                    <option th:each="employee : ${employeesList}" th:value="${employee.getId()}" th:multiple="multiple"
-                        th:text="${employee.getFirstName()}" >Options</option>
-                </select>
+				<label >Add Team:</label> 
+				<select name="empId"
+					id="employees">
+					<option th:each="data:${employeesList}" th:value="${data.id}" 
+						th:text="${data.firstName}" >Options</option>
+				</select>
 			</div>
-			
+
 			<button type="submit" class="btn btn-primary">Save</button>
-			
+
 			<a href="#" th:href="@{/projects}" class="btn btn-danger"
 				role="button">Cancel</a>
 		</form>

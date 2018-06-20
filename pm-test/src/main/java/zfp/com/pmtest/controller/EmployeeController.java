@@ -50,6 +50,12 @@ public class EmployeeController {
 		model.addAttribute("employee", employeeService.findById(Long.valueOf(id)));
 		return "employee";
 	}
+	@RequestMapping("employee/{id}/delete")
+	public ModelAndView deleteEmployee(@PathVariable String id, ModelMap model) {
+		employeeService.deleteEmployee(Long.valueOf(id));
+		 model.addAttribute("employees", employeeService.getEmployees());
+		 return new ModelAndView("redirect:/listEmployees", model);	
+	}
 
 	@PostMapping("/employees/saveEmployee")
 	public ModelAndView saveOrUpdate(ModelMap model, Employee employee) {

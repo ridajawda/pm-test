@@ -25,14 +25,14 @@
 		<br>
 
 		<form class="form-group" th:object="${project}"
-			th:action="@{/projects/saveProject}" method="post">
+			th:action="@{/projects/saveTeam}" method="post">
 			<input th:type="hidden" name="id" th:field="${project.id}" />
 
 			<div class="form-group">
 				<label >Add Team:</label> 
-				<select name="empId"
+				<select name="employees"
 					id="employees">
-					<option th:each="data:${employeesList}" th:value="${data.id}" 
+					<option th:each="data:${employeesList}" th:value="${data.id}"   th:multiple="multiple"
 						th:text="${data.firstName}" >Options</option>
 				</select>
 			</div>
@@ -42,6 +42,8 @@
 			<a href="#" th:href="@{/projects}" class="btn btn-danger"
 				role="button">Cancel</a>
 		</form>
+		
+		
 
 	</div>
 

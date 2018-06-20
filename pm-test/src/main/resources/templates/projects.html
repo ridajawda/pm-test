@@ -24,6 +24,7 @@
 				<th>Project Type</th>
 				<th></th>
 				<th></th>
+				<th></th>
 				
 			</tr>
 			<tr th:each="project : ${projects}">
@@ -33,6 +34,7 @@
 				<td th:text="${project.endDate}"></td>
 				<td th:text="${project.projectType}"></td>
 				<td><a th:href="@{'/project/' + ${project.id} + '/update'}">Update</a></td>
+				<td><a th:href="@{'/project/' + ${project.id} + '/delete'}">Delete</a></td>
 				<td><a th:href="@{'/project/' + ${project.id} + '/addTeam'}">Add Team</a></td>
 			</tr>
 		</table>

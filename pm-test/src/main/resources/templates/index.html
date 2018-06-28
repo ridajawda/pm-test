@@ -24,9 +24,16 @@
 		<div class="container"></div>
 	</div>
 	<div class="container">
-		<h1 >Welcome to Main Page</h1>
+		<form th:action="@{/logout}" method="post" 	class="form-horizontal">
+					
+						<div style="margin-top: 10px" class="form-group">
+							<div class="col-sm-6 controls">
+								<button type="submit" class="btn btn-success">Logout</button>
+							</div>
+						</div>
+		</form>
 	</div>
-<div class="footer" th:replace="fragments/footer :: footer">
+    <div class="footer" th:replace="fragments/footer :: footer">
 		<div class="container"></div>
 	</div>
 

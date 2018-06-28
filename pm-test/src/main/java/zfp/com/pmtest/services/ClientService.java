@@ -12,5 +12,7 @@ public interface ClientService {
 	Client findById(Long id);
 
 	Client saveClient(Client client);
+
+	void deleteClient(Long id);
 	
 }

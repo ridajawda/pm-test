@@ -35,6 +35,12 @@ public class Employee {
 
 	@Column(name = "LAST_NAME")
 	private String lastName;
+	
+	@Column(name = "USER_NAME")
+	private String userName;
+	
+	@Column(name = "PASSWORD")
+	private String password;
 
 	@Column(name = "DOB")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -65,29 +71,14 @@ public class Employee {
 	@OneToOne(cascade=CascadeType.ALL)
 	private EmployeeInfo empInfo;
 
-	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-	@JoinTable(name = "EMPLOYEE_PROJECT", joinColumns = { @JoinColumn(name = "EMPLOYEE_ID") }, inverseJoinColumns = {
-			@JoinColumn(name = "PROJECT_ID") })
-	Set<Project> projects;
-	
+	@ManyToMany(mappedBy = "employees", fetch = FetchType.EAGER)
+	private Set<Project> projects;
 	
 	public Employee() {
 		super();
 	}
 	
-	public Employee(Long id, String firstName, String lastName, String telephone, String email, String jobTitle) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.telephone = telephone;
-		this.email = email;
-		this.jobTitle = jobTitle;
-	}
-
-
-
-		
+	
 	public Long getId() {
 		return id;
 	}
@@ -185,6 +176,26 @@ public class Employee {
 
 	public void setEmpInfo(EmployeeInfo empInfo) {
 		this.empInfo = empInfo;
+	}
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 }

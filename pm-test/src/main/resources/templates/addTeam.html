@@ -11,41 +11,40 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<body>
-	<div class="container">
-
-		<h1>
-			<span th:text="${project.name }" th:remove="tag">title</span>
-		</h1>
-		<h3>
-			<span th:text="${project.id }" th:remove="tag">title</span>
-		</h3>
-		<br>
-		<h2>Add Project Team</h2>
-		<br>
-
-		<form class="form-group" th:object="${project}"
-			th:action="@{/projects/saveTeam}" method="post">
-			<input th:type="hidden" name="id" th:field="${project.id}" />
-
-			<div class="form-group">
-				<label >Add Team:</label> 
-				<select name="employees"
-					id="employees">
-					<option th:each="data:${employeesList}" th:value="${data.id}"   th:multiple="multiple"
-						th:text="${data.firstName}" >Options</option>
-				</select>
-			</div>
-
-			<button type="submit" class="btn btn-primary">Save</button>
-
-			<a href="#" th:href="@{/projects}" class="btn btn-danger"
-				role="button">Cancel</a>
-		</form>
-		
-		
-
+<div class="header" th:replace="fragments/header :: header">
+		<div class="container"></div>
 	</div>
-
+<div class="container">
+  <h2>Add Project Team</h2>
+		<br>
+	<form  action="saveProjectEmployees" method="post">
+		<div class="form-group">
+		<select name="project" id="project">
+			<option value="">Select Project</option>
+			<th:block th:each="project:${projects}">
+				<option th:value="${project.id}" th:text="${project.name}"></option>
+			</th:block>
+		</select>
+		</div>	
+		<div class="form-group">
+		<select class="form-group" name="employees" id="employees" multiple="multiple">
+			<option value="">Select Employee(s)</option>
+			<th:block th:each="employee:${employees}">
+				<option th:value="${employee.id}" th:text="${employee.firstName}"></option>
+			</th:block>
+		</select> 
+		</div>	
+		<div class="row">
+		<select class="form-group" name="action" id="action">
+			<option value="">Select Action</option>
+			<option value="assign">Assign</option>
+			<option value="deAssign">Deassign</option>
+		</select>
+		</div>	
+		 <input type="submit" class="btn btn-primary" value="submit">
+		 <a href="#" th:href="@{/projects}" class="btn btn-danger"
+				role="button">Cancel</a>
+	</form>
+	</div>
 </body>
 </html>

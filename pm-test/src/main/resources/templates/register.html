@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Registration Page</title>
+
+<!-- Bootstrap Core CSS -->
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link href="../vendor/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+<link href="../vendor/toastr/toastr.min.css" rel="stylesheet"
+	type="text/css">
+<link href="../vendor/datepicker/bootstrap-datepicker3.css"
+	rel="stylesheet" type="text/css">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<style type="text/css">
+.error {
+	color: red;
+}
+</style>
+
+</head>
+
+<body>
+<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<div class="login-panel panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Please Register</h3>
+					</div>
+					<div class="panel-body">
+						<form role="form" action="/register" method="post"
+							id="registerFormId">
+							<fieldset>
+								<div class="form-group">
+									<input class="form-control" placeholder="First name"
+										name="firstName" id="firstName" type="text" autofocus>
+								</div>
+								<div class="form-group">
+									<input class="form-control" placeholder="Last name"
+										name="lastName" id="lastName" type="text" autofocus>
+								</div>
+								<div class="form-group">
+									<input class="form-control" placeholder="Date of birth"
+										name="dob" id="dob" type="text" autofocus>
+								</div>
+								<div class="form-group">
+									<input class="form-control" placeholder="Email" name="email"
+										id="email" type="text" autofocus>
+								</div>
+								<div class="form-group">
+									<input class="form-control" placeholder="Telephone"
+										id="telephone" name="telephone" type="text" maxlength="15"
+										autofocus>
+								</div>
+								<div class="form-group">
+									<input class="form-control" placeholder="Username"
+										id="userName" name="userName" type="text" autofocus>
+								</div>
+								<div class="form-group">
+									<input class="form-control" placeholder="Password"
+										id="password" name="password" type="password">
+								</div>
+								<div class="form-group">
+									<select class="form-control" name="securityQuestion"
+										id="securityQuestionId">
+										<option value=0>Select Security Question</option>
+										<th:block th:each="securityQn:${securityQns}">
+											<option th:value="${securityQn.id}"
+												th:text="${securityQn.question}"></option>
+										</th:block>
+									</select>
+								</div>
+								<div class="form-group">
+									<input class="form-control" placeholder="Security Answer"
+										name="securityAnswer" id="securityAnswer" type="text"
+										autofocus>
+								</div>
+								<!-- Change this to a button or input when using this as a form -->
+								<button class="btn btn-lg btn-success btn-block" type="button"
+									onclick="verify()">Register</button>
+							</fieldset>
+						</form>
+						<p>
+							Already Registered ! <a href="/">Login here</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script src="../vendor/jquery/jquery.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Toastr Plugin JavaScript -->
+	<script src="../vendor/toastr/toastr.min.js"></script>
+
+	<script src="../vendor/datepicker/bootstrap-datepicker.min.js"></script>
+
+	<script type="text/javascript">
+		toastr.options = {
+			"closeButton" : true,
+			"debug" : false,
+			"newestOnTop" : true,
+			"progressBar" : true,
+			"positionClass" : "toast-top-right",
+			"preventDuplicates" : true,
+			"onclick" : null,
+			"showDuration" : "300",
+			"hideDuration" : "1000",
+			"timeOut" : "5000",
+			"extendedTimeOut" : "1000",
+			"showEasing" : "swing",
+			"hideEasing" : "linear",
+			"showMethod" : "fadeIn",
+			"hideMethod" : "fadeOut"
+		}
+
+		function validateEmail(sEmail) {
+			var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+			if (filter.test(sEmail)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		function showMessage(message, type) {
+			if (type == "error") {
+				toastr.error(message, "Error");
+			} else if (type == "info") {
+				toastr.info(message, "Info");
+			} else if (type == "warning") {
+				toastr.warning(message, "Warning");
+			} else if (type == "success") {
+				toastr.success(message, "Success");
+			} else {
+			}
+		}
+	</script>
+	<script type="text/javascript">
+		function verify() {
+			if ($("#firstName").val().trim() == "") {
+				showMessage("Please Enter First Name", "warning");
+				$("#firstName").focus();
+				return false;
+			} else if ($("#lastName").val().trim() == "") {
+				showMessage("Please Enter Last Name", "warning");
+				$("#lastName").focus();
+				return false;
+			} else if ($("#dob").val().trim() == "") {
+				showMessage("Please Select Date Of Birth", "warning");
+				$("#dob").focus();
+				return false;
+			} else if ($("#email").val().trim() == "") {
+				showMessage("Please Enter Email", "warning");
+				$("#email").focus();
+				return false;
+			} else if (!validateEmail($("#email").val().trim().trim())) {
+				showMessage("Please Enter Valid Email", "warning");
+				$("#email").focus();
+				return false;
+			} else if ($("#telephone").val().trim() == "") {
+				showMessage("Please Enter Telephone", "warning");
+				$("#telephone").focus();
+				return false;
+			} else if ($("#userName").val().trim() == "") {
+				showMessage("Please Enter Username", "warning");
+				$("#userName").focus();
+				return false;
+			} else if ($("#password").val().trim() == "") {
+				showMessage("Please Enter Password", "warning");
+				$("#password").focus();
+				return false;
+			} else if ($("#securityQuestionId").val().trim() == "0") {
+				showMessage("Please Select Security Question", "warning");
+				$("#securityQuestionId").focus();
+				return false;
+			} else if ($("#securityAnswer").val().trim() == "") {
+				showMessage("Please Enter Security Answer", "warning");
+				$("#securityAnswer").focus();
+				return false;
+			} else {
+				$.ajax({
+					url : $("#registerFormId").attr("action"),
+					type : 'post',
+					data : $("#registerFormId").serialize(),
+					success : function(data) {
+						if (data.split("-")[0] == "SUCCESS") {
+							alert(data.split("-")[1]);
+							$("#registerFormId")[0].reset();
+							window.location.reload();
+						} else {
+							showMessage(data.split("-")[1], "error");
+						}
+
+					},
+					error : function() {
+						alert("Unable to load details.");
+					}
+				});
+			}
+		}
+
+		$(document).ready(function() {
+			$("#firstName").focus();
+			var maxDateVal = new Date();
+			$("#dob").datepicker({
+				format : 'dd-mm-yyyy',
+				minDate : 0
+			});
+		});
+	</script>
+</body>
+</html>

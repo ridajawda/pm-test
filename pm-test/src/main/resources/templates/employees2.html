@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Getting Started: Serving Web Content</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<br>
+	<div class="container">
+		<div class="row">
+		<h2>Employees List</h2>
+					
+			<button class="btn btn-xs btn-success pull-right"
+							onclick="javascript:showEmpPopup('<th:url value='/employees/new' />')">Add
+							Employee</button>
+			
+			
+			
+			<div class="col-sm-22">
+				<div class="panel panel-primary panel-lg">
+
+					<div class="panel-body">
+						th:if test="${!empty employees}">
+						<div class="table-responsive">
+							<table id="myTable" class="table table-striped ">
+								<tr>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Email</th>
+									<th>Date of Birth</th>
+									<th>Telephone</th>
+									<th>Job Title</th>
+									<th>Hiring Date</th>
+									<th>Termination Date</th>
+									<th></th>
+									<th></th>
+								</tr>
+								<tr th:each="employee : ${employees}">
+									<td th:text="${employee.firstName}"></td>
+									<td th:text="${employee.lastName}"></td>
+									<td th:text="${employee.email}"></td>
+									<td th:text="${employee.dob}"></td>
+									<td th:text="${employee.telephone}"></td>
+									<td th:text="${employee.jobTitle}"></td>
+									<td th:text="${employee.hiringDate}"></td>
+									<td th:text="${employee.terminationDate}"></td>
+
+									<td><a
+										th:href="@{'/employee/' + ${employee.id} + '/update'}">Update</a></td>
+									<td><a
+										th:href="@{'/employee/' + ${employee.id} + '/delete'}">Delete</a></td>
+								</tr>
+							</table>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Employee Form Modal Start -->
+	<div id="empAddModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Employee Form</h4>
+				</div>
+				<div class="modal-body">
+					<div id="empAddPopupId"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- Employee Modal End -->
+
+	<script>
+		function showEmpPopup(serverUrl) {
+			$.ajax({
+				url : serverUrl,
+				type : 'get',
+				success : function(data) {
+					$("#empAddPopupId").html(data);
+					$('#empAddModal').modal('show');
+				},
+				error : function() {
+					alert("Unable to load details.");
+				}
+			});
+		}
+
+		function updateEmloyee(serverUrl) {
+			$.ajax({
+				url : serverUrl,
+				type : 'get',
+				success : function(data) {
+					$("#empAddPopupId").html(data);
+					$('#empAddModal').modal('show');
+				},
+				error : function() {
+					alert("Unable to load details.");
+				}
+			});
+		}
+	</script>
+</body>
+</html>

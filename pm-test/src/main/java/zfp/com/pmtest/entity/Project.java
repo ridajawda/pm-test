@@ -3,16 +3,20 @@ package zfp.com.pmtest.entity;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
 
 @Entity
 @Table(name = "PROJECT")
@@ -43,9 +47,10 @@ public class Project {
 	@Column(name = "COST")
 	private Float cost;
 
-	@ManyToMany(mappedBy = "projects", fetch = FetchType.EAGER)
-	private Set<Employee> employees;
-	
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+	@JoinTable(name = "EMPLOYEE_PROJECT", joinColumns = { @JoinColumn(name = "PROJECT_ID") }, inverseJoinColumns = {
+			@JoinColumn(name = "EMPLOYEE_ID") })
+	Set<Employee> employees;
 	
 	public Project() {
 		super();

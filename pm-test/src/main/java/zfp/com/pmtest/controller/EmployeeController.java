@@ -29,7 +29,7 @@ public class EmployeeController {
 		return "employees";
 	}*/
 	
-	@RequestMapping(value = "/listEmployees", method = RequestMethod.GET)
+	@RequestMapping(value = "/employees", method = RequestMethod.GET)
 	public ModelAndView employees() {
 		ModelAndView mv = new ModelAndView();
 		//mv.addObject("employee", new EmployeeBO());

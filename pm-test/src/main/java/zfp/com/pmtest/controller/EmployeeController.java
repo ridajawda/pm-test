@@ -34,34 +34,39 @@ public class EmployeeController {
 		ModelAndView mv = new ModelAndView();
 		//mv.addObject("employee", new EmployeeBO());
 		mv.addObject("employees", this.employeeService.getEmployees());
-		mv.setViewName("employees");
+		mv.setViewName("employee/employees");
 		return mv;
 	}
 
 	@RequestMapping("/employees/new")
 	public String newEmployee(Model model) {
 		model.addAttribute("employee", new Employee());
-		return "/employee";
+		return "employee/employee";
 	}
 
-
+	@RequestMapping("employee/{id}/show")
+	public String showEmployee(@PathVariable String id, Model model) {
+		model.addAttribute("employee", employeeService.findById(Long.valueOf(id)));
+		return "employee/show";
+	}
+	
 	@RequestMapping("employee/{id}/update")
 	public String updateEmployee(@PathVariable String id, Model model) {
 		model.addAttribute("employee", employeeService.findById(Long.valueOf(id)));
-		return "employee";
+		return "employee/employee";
 	}
 	@RequestMapping("employee/{id}/delete")
 	public ModelAndView deleteEmployee(@PathVariable String id, ModelMap model) {
 		employeeService.deleteEmployee(Long.valueOf(id));
 		 model.addAttribute("employees", employeeService.getEmployees());
-		 return new ModelAndView("redirect:/listEmployees", model);	
+		 return new ModelAndView("redirect:/employees", model);	
 	}
 
 	@PostMapping("/employees/saveEmployee")
 	public ModelAndView saveOrUpdate(ModelMap model, Employee employee) {
 		 employeeService.saveEmployee(employee);
 		 model.addAttribute("employees", employeeService.getEmployees());
-		 return new ModelAndView("redirect:/listEmployees", model);	
+		 return new ModelAndView("redirect:/employees", model);	
 	}
 	
 	

@@ -13,13 +13,20 @@
 <body>
 
 	<div class="container">
-
+ <div class="row">
 		<h1>
-			<span th:text="${employee.firstName + ' ' + employee.lastName}"
-				th:remove="tag">title</span>
-
+		<span th:text="${employee.id != null} ? ${employee.firstName + ' ' + employee.lastName}">someValue</span>
+			
 		</h1>
-
+ </div>
+  <div class="row">
+		<div class="col-md-1">
+			<a class="btn btn-primary" href="#"
+				th:href="@{'/employee/' + ${employee.id} + '/image'}" role="button" >Change Image</a>
+		</div>
+		 <br>
+		  <br>
+ </div>
 		<form class="form-group" th:object="${employee}"
 			th:action="@{/employees/saveEmployee}" method="post">
 			<input th:type="hidden" name="id" th:field="${employee.id}" />

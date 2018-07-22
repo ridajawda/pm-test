@@ -1,12 +1,15 @@
 package zfp.com.pmtest.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -25,9 +28,6 @@ public class EmployeeInfo implements Serializable {
 	@Column(name = "PASSWORD")
 	private String password;
 
-	@Column(name = "ROLE")
-	private String role;
-
 	@Column(name = "SALARY")
 	private Float salary;
 
@@ -36,6 +36,9 @@ public class EmployeeInfo implements Serializable {
 
 	@Column(name = "SCN")
 	private String scn;
+	
+	@OneToMany(mappedBy = "employeeInfo", fetch = FetchType.EAGER)
+	private List<Role> roles;
 
 	public int getId() {
 		return id;
@@ -61,14 +64,6 @@ public class EmployeeInfo implements Serializable {
 		this.password = password;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
 	public Float getSalary() {
 		return salary;
 	}
@@ -91,6 +86,14 @@ public class EmployeeInfo implements Serializable {
 
 	public void setScn(String scn) {
 		this.scn = scn;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 }

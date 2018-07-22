@@ -34,6 +34,7 @@
 				<th>Termination Date</th>
 				<th></th>
 				<th></th>
+				<th></th>
 			</tr>
 			<tr th:each="employee : ${employees}">
 				<td th:text="${employee.firstName}"></td>
@@ -44,7 +45,7 @@
 				<td th:text="${employee.jobTitle}"></td>
 				<td th:text="${employee.hiringDate}"></td>
 				<td th:text="${employee.terminationDate}"></td>
-
+                <td><a th:href="@{'/employee/' + ${employee.id} + '/show'}">Show</a></td>
 				<td><a th:href="@{'/employee/' + ${employee.id} + '/update'}">Update</a></td>
 				<td><a th:href="@{'/employee/' + ${employee.id} + '/delete'}">Delete</a></td>
 			</tr>

@@ -11,13 +11,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -41,6 +39,9 @@ public class Employee {
 	
 	@Column(name = "PASSWORD")
 	private String password;
+	
+	@Lob
+    private Byte[] image;
 
 	@Column(name = "DOB")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -74,6 +75,18 @@ public class Employee {
 	@ManyToMany(mappedBy = "employees", fetch = FetchType.EAGER)
 	private Set<Project> projects;
 	
+	
+	
+	public Byte[] getImage() {
+		return image;
+	}
+
+
+	public void setImage(Byte[] image) {
+		this.image = image;
+	}
+
+
 	public Employee() {
 		super();
 	}

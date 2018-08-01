@@ -69,5 +69,8 @@ public class EmployeeController {
 		 return new ModelAndView("redirect:/employees", model);	
 	}
 	
-	
+	@GetMapping(value = "/403")
+	public String accessDeniedPage() {
+		return "accessDeniedPage";
+	}
 	}

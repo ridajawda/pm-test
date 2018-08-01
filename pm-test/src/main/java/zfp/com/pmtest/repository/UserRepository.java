@@ -1,0 +1,12 @@
+package zfp.com.pmtest.repository;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import zfp.com.pmtest.entity.User;
+
+@Repository
+public interface UserRepository extends CrudRepository<User, Long> {
+    public User findByUserName(String username);
+    
+}

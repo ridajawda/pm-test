@@ -37,9 +37,6 @@ public class EmployeeInfo implements Serializable {
 	@Column(name = "SCN")
 	private String scn;
 	
-	@OneToMany(mappedBy = "employeeInfo", fetch = FetchType.EAGER)
-	private List<Role> roles;
-
 	public int getId() {
 		return id;
 	}
@@ -88,12 +85,5 @@ public class EmployeeInfo implements Serializable {
 		this.scn = scn;
 	}
 
-	public List<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
 
 }

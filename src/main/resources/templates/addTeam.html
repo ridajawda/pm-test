@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Getting Started: Serving Web Content</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="header" th:replace="fragments/header :: header">
+		<div class="container"></div>
+	</div>
+<div class="container">
+  <h2>Add Project Team</h2>
+		<br>
+	<form  action="saveProjectEmployees" method="post">
+		<div class="form-group">
+		<select name="project" id="project">
+			<option value="">Select Project</option>
+			<th:block th:each="project:${projects}">
+				<option th:value="${project.id}" th:text="${project.name}"></option>
+			</th:block>
+		</select>
+		</div>	
+		<div class="form-group">
+		<select class="form-group" name="employees" id="employees" multiple="multiple">
+			<option value="">Select Employee(s)</option>
+			<th:block th:each="employee:${employees}">
+				<option th:value="${employee.id}" th:text="${employee.firstName}"></option>
+			</th:block>
+		</select> 
+		</div>	
+		<div class="row">
+		<select class="form-group" name="action" id="action">
+			<option value="">Select Action</option>
+			<option value="assign">Assign</option>
+			<option value="deAssign">Deassign</option>
+		</select>
+		</div>	
+		 <input type="submit" class="btn btn-primary" value="submit">
+		 <a href="#" th:href="@{/projects}" class="btn btn-danger"
+				role="button">Cancel</a>
+	</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+     <title>Getting Started: Serving Web Content</title>
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="header" th:replace="fragments/header :: header">
+		<div class="container"></div>
+	</div>
+<div class="container">
+     <h2>Consultants List</h2>
+     <a href="#" th:href="@{/consultants/new}" class="btn btn-primary" role="button">Add New Consultant</a>
+			<br>
+			<br>
+    <table class="table table-striped">
+        <tr>
+            <th>Consultant Name</th>
+            <th>Address</th>
+            <th>Telephone</th>
+            <th>Email</th>
+            <th></th>
+            
+        </tr>
+        <tr th:each="consultant : ${consultants}">
+            <td th:text="${consultant.name}"></td>
+            <td th:text="${consultant.address}"></td>
+            <td th:text="${consultant.telephone}"></td>
+            <td th:text="${consultant.email}"></td>
+            <td><a th:href="@{'/consultant/' + ${consultant.id} + '/update'}">Update</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
